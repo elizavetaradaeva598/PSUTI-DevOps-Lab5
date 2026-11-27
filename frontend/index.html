@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Казанская афиша — Управление квотами билетов</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <div>
+        <span class="badge">Вариант 13 · Kazan Events</span>
+        <h1>Управление квотами билетов</h1>
+        <p class="subtitle">Контроль вместимости площадок, проданных билетов и доступного остатка мест</p>
+      </div>
+      <div class="health-box" id="healthStatus">Проверка API...</div>
+    </div>
+  </header>
 
+  <main class="container">
+    <section class="summary-grid" aria-label="Сводка по квотам">
+      <article class="summary-card">
+        <span class="summary-card__label">Событий в выборке</span>
+        <strong class="summary-card__value" id="statEvents">—</strong>
+      </article>
+      <article class="summary-card">
+        <span class="summary-card__label">Суммарная квота</span>
+        <strong class="summary-card__value" id="statQuota">—</strong>
+      </article>
+      <article class="summary-card">
+        <span class="summary-card__label">Продано билетов</span>
+        <strong class="summary-card__value summary-card__value--sold" id="statSold">—</strong>
+      </article>
+      <article class="summary-card">
+        <span class="summary-card__label">Осталось мест</span>
+        <strong class="summary-card__value summary-card__value--free" id="statAvailable">—</strong>
+      </article>
+    </section>
+
+    <section class="controls">
+      <div class="control-group control-group--grow">
+        <label for="searchInput">Поиск события</label>
+        <input type="text" id="searchInput" placeholder="Название или описание мероприятия..." />
+      </div>
+
+      <div class="control-group">
+        <label for="statusFilter">Статус события</label>
+        <select id="statusFilter">
+          <option value="">Все статусы</option>
+          <option value="published">Опубликовано (published)</option>
+          <option value="draft">Черновик (draft)</option>
+          <option value="cancelled">Отменено (cancelled)</option>
+          <option value="archived">В архиве (archived)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="sortFilter">Сортировка</label>
+        <select id="sortFilter">
+          <option value="starts_at">По дате начала (сначала ранние)</option>
+          <option value="-starts_at">По дате начала (сначала поздние)</option>
+          <option value="title">По названию (А–Я)</option>
+          <option value="-price_rub">По цене (дороже)</option>
+        </select>
+      </div>
+
+      <button type="button" class="btn btn--secondary" id="refreshBtn">Обновить</button>
+    </section>
+
+    <div id="globalBanner" class="banner hidden" role="alert"></div>
+
+    <section id="eventsList" class="events-grid" aria-live="polite"></section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
